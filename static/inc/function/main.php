@@ -45,7 +45,7 @@ function add_data($uid,$date,$token,$type,$value,$desc){
 	if(isset($uid)){
 		$token 				= UbahSimbol($token);
 		$desc 				= UbahSimbol($desc);
-		$check_token 	= count_on_tbl("data","`token`='$token'");
+		$check_token 	= count_on_tbl("data","`token`='$token' and `desc`='$desc'");
 		if($check_token>0){
 			$output 		= 0;
 		}
@@ -64,7 +64,7 @@ function add_data($uid,$date,$token,$type,$value,$desc){
 }
 
 //menampilkan data dari database dengan output json
-function list_data($uid,$date=null,$from=null,$to=null,$type=null,$status=null,$limit=null){
+function list_data($uid,$date=null,$from=null,$to=null,$type=null,$status=null,$limit=null,$search=null){
 	if(isset($uid)){
 		
 		if(isset($date) and empty($from) and empty($to)){
@@ -78,6 +78,10 @@ function list_data($uid,$date=null,$from=null,$to=null,$type=null,$status=null,$
 			$type = " and `type`='$type' ";
 		}
 		
+		if(isset($search)){
+			$search = " and `desc` like '%$search%' or `token` like '%$search%' ";
+		}
+		
 		if(isset($status)){
 			$status = " and `status`='$status' "; 
 		}
@@ -89,7 +93,7 @@ function list_data($uid,$date=null,$from=null,$to=null,$type=null,$status=null,$
 			$limit = " limit $limit ";
 		}
 
-		$qry	= "select * from `data` where `uid`='$uid' $date $type $status $limit";
+		$qry	= "select * from `data` where `uid`='$uid' $date $type $status $search $limit";
 		$data = select_tbl_qry($qry);
 		
 		$json = json_encode($data); 

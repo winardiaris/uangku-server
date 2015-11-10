@@ -4,7 +4,7 @@ if(isset($_REQUEST['op'])){
 	$uid					=	ifset('uid');
 	$did					=	ifset('did');
 	$username 		= ifset('username');
-	$password 		= ifset('password');
+	$password 		= md5(ifset('password'));
 	$realname 		= ifset('realname');
 	$date					= ifset('date');
 	$token				= ifset('token');
@@ -15,6 +15,7 @@ if(isset($_REQUEST['op'])){
 	$limit				= ifset('limit');
 	$from					= ifset('from');
 	$to						= ifset('to');
+	$search				= ifset('search');
 	$from_data		= ifset('from_data');
 	$value_data		= ifset('value_data');
 	$select_field	= ifset('select_field');
@@ -37,7 +38,7 @@ if(isset($_REQUEST['op'])){
 		echo add_data($uid,$date,$token,$type,$value,$desc);
 	}
 	elseif($op=="viewdata"){
-		echo list_data($uid,$date,$from,$to,$type,$status,$limit);
+		echo list_data($uid,$date,$from,$to,$type,$status,$limit,$search);
 	}
 	elseif($op=="totaldata"){
 		echo total_value_data($uid,$date,$from,$to,$type,$status,$limit);
