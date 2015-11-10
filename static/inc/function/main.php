@@ -122,7 +122,7 @@ function delete_data($did,$desc){
 }
 
 //menampilkan jumlah value(uang) baik untuk in/out
-function total_value_data($uid,$date=null,$from=null,$to=null,$type=null,$status=null,$limit=null){
+function total_value_data($uid,$date=null,$from=null,$to=null,$type=null,$status=null,$limit=null,$search=null){
 	if(isset($uid)){
 		
 		if(isset($date) and empty($from) and empty($to)){
@@ -134,6 +134,10 @@ function total_value_data($uid,$date=null,$from=null,$to=null,$type=null,$status
 		
 		if(isset($type)){
 			$type = " and `type`='$type' ";
+		}
+		
+		if(isset($search)){
+			$search = " and `desc` like '%$search%' or `token` like '%$search%' ";
 		}
 		
 		if(isset($status)){
@@ -152,7 +156,7 @@ function total_value_data($uid,$date=null,$from=null,$to=null,$type=null,$status
 			$limit = " limit $limit ";
 		}
 		
-		$q = "select sum(`value`) as `total` from `data` where `uid`='$uid' $date $type $status $limit";
+		$q = "select sum(`value`) as `total` from `data` where `uid`='$uid' $date $type $status $search $limit";
 		$data = select_tbl_qry($q);
 		$data = $data[0]['total'];
 		

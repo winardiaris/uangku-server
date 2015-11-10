@@ -56,7 +56,7 @@
 		</td>
 		<td>menampilkan data yang ada di basis data<br>
 			<small>Contoh:</small><br>
-			<pre>?op=viewdata&uid=1&date=2015-02-02&type=in&limit=100</pre>
+			<pre>?op=viewdata&uid=1&date=2015-02-02&type=in&limit=100$search=string</pre>
 			<pre>?op=viewdata&uid=1&from=2015-12-01&to=2015-12-31&type=out&limit=10</pre>
 			<small class='text-danger'>uid*</small>
 		</td>
@@ -79,7 +79,7 @@
 		<td>Menampilkan total uang (saldo) setelah data <i>in</i> di kurangi data <i>out</i><br>
 			<small>Contoh:</small><br>
 			<pre>?op=saldodata?uid=1&date=2015-01-01&limit=10</pre>
-			<pre>?op=saldodata&uid=1&from=2015-12-01&to=2015-12-31&limit=10</pre>
+			<pre>?op=saldodata&uid=1&from=2015-12-01&to=2015-12-31&limit=10&search=string</pre>
 			<small class='text-danger'>uid*</small>
 		</td>
 	</tr>

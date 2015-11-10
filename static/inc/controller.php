@@ -41,11 +41,11 @@ if(isset($_REQUEST['op'])){
 		echo list_data($uid,$date,$from,$to,$type,$status,$limit,$search);
 	}
 	elseif($op=="totaldata"){
-		echo total_value_data($uid,$date,$from,$to,$type,$status,$limit);
+		echo total_value_data($uid,$date,$from,$to,$type,$status,$limit,$search);
 	}
 	elseif($op=="saldodata"){
-		$in = total_value_data($uid,$date,$from,$to,'in',$status,$limit);
-		$out = total_value_data($uid,$date,$from,$to,'out',$status,$limit);
+		$in = total_value_data($uid,$date,$from,$to,'in',$status,$limit,$search);
+		$out = total_value_data($uid,$date,$from,$to,'out',$status,$limit,$search);
 		
 		echo $in-$out;
 	}
