@@ -12,7 +12,7 @@
 		<th>Keterangan</th>
 	</tr>
 	<tr>
-		<td rowspan='7' width='20px'><b >op=</b></td>
+		<td rowspan='10' width='20px'><b >op=</b></td>
 		<td>
 			<b>newuser</b>
 		</td>
@@ -89,9 +89,8 @@
 		</td>
 		<td>menghapus data<br>
 			<small>Contoh:</small><br>
-			<pre>?op=saldodata?uid=1&date=2015-01-01&limit=10</pre>
-			<pre>?op=saldodata&uid=1&from=2015-12-01&to=2015-12-31&limit=10&search=string</pre>
-			<small class='text-danger'>uid*</small>
+			<pre>?op=deletedata&did=1&desc=salah masukan data</pre>
+			<small class='text-danger'>did*</small>
 		</td>
 	</tr>
 	<tr>
