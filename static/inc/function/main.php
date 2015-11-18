@@ -11,7 +11,7 @@ function save_new_user($username,$password,$realname){
 	return $output;
 }
 function update_user($uid,$username,$password,$realname){
-	$output = update_tbl("user","`password`='$password',`realname`='$realname'","`username`='$username'","`uid`='$uid'");
+	$output = update_tbl("user","`password`='$password',`realname`='$realname',`username`='$username'","`uid`='$uid'");
 	return $output;
 }
 function set_user_last_login($username){
@@ -67,10 +67,10 @@ function add_data($uid,$date,$token,$type,$value,$desc){
 function list_data($uid,$date=null,$from=null,$to=null,$type=null,$status=null,$limit=null,$search=null){
 	if(isset($uid)){
 		
-		if(isset($date) and empty($from) and empty($to)){
+		if(!empty($date) and empty($from) and empty($to)){
 			$date = " and `date`='$date' ";
 		}
-		elseif(isset($from) and isset($to) and empty($date)){
+		elseif(!empty($from) and !empty($to) and empty($date)){
 			$date = " and (`date` BETWEEN '$from' and '$to') ";
 		}
 		
@@ -78,7 +78,7 @@ function list_data($uid,$date=null,$from=null,$to=null,$type=null,$status=null,$
 			$type = " and `type`='$type' ";
 		}
 		
-		if(isset($search)){
+		if(!empty($search)){
 			$search = " and `desc` like '%$search%' or `token` like '%$search%' ";
 		}
 		
@@ -119,6 +119,14 @@ function delete_data($did,$desc){
 		return 0;
 	}
 	
+}
+
+function update_data($uid,$did,$date,$token,$type,$value,$desc){
+	$tbl_name="data";
+	$set_data = "`date`='$date',`token`='$token',`type`='$type',`value`='$value',`desc`='$desc'";
+	$where = "`did`='$did' and `uid`='$uid'";
+	
+	return update_tbl($tbl_name,$set_data,$where);
 }
 
 //menampilkan jumlah value(uang) baik untuk in/out

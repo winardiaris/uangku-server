@@ -171,11 +171,8 @@ function UbahBulan($str){
 }
 
 function ifset($str){
-	if(isset($_GET[$str])){
-		return $_GET[$str];
-	}
-	elseif(isset($_POST[$str])){
-		return $_POST[$str];
+	if(isset($_REQUEST[$str])){
+		return $_REQUEST[$str];
 	}
 	else{
 		return null;

@@ -84,6 +84,27 @@
 		</td>
 	</tr>
 	<tr>
+		<td>
+			<b>deletedata</b>
+		</td>
+		<td>menghapus data<br>
+			<small>Contoh:</small><br>
+			<pre>?op=saldodata?uid=1&date=2015-01-01&limit=10</pre>
+			<pre>?op=saldodata&uid=1&from=2015-12-01&to=2015-12-31&limit=10&search=string</pre>
+			<small class='text-danger'>uid*</small>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<b>updatedata</b>
+		</td>
+		<td>memperbaharui data<br>
+			<small>Contoh:</small><br>
+			<pre>?op=updatedata&uid=21&did=11&date=2015-11-16&token=udah diganti&type=out&value=16000&desc=di ganti</pre>
+			<small class='text-danger'>uid*</small>
+		</td>
+	</tr>
+	<tr>
 		<td colspan='3'><small class='text-danger'>*harus(required)</small></td>
 	</tr>
 </table>

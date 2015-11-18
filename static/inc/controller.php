@@ -52,6 +52,9 @@ if(isset($_REQUEST['op'])){
 	elseif($op=="deletedata"){
 		echo delete_data($did,$desc);
 	}
+	elseif($op=="updatedata"){
+		echo update_data($uid,$did,$date,$token,$type,$value,$desc);
+	}
 	elseif($op=="test"){
 		include ("test.php");
 	}
