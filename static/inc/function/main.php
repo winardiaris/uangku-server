@@ -64,43 +64,45 @@ function add_data($uid,$date,$token,$type,$value,$desc){
 }
 
 //menampilkan data dari database dengan output json
-function list_data($uid,$date=null,$from=null,$to=null,$type=null,$status=null,$limit=null,$search=null){
+function list_data($uid,$did=null,$date=null,$from=null,$to=null,$type=null,$status=null,$limit=null,$search=null){
 	if(isset($uid)){
-		
-		if(!empty($date) and empty($from) and empty($to)){
-			$date = " and `date`='$date' ";
-		}
-		elseif(!empty($from) and !empty($to) and empty($date)){
-			$date = " and (`date` BETWEEN '$from' and '$to') ";
-		}
-		
-		if(isset($type)){
-			$type = " and `type`='$type' ";
-		}
-		
-		if(!empty($search)){
-			$search = " and `desc` like '%$search%' or `token` like '%$search%' ";
-		}
-		
-		if(isset($status)){
-			$status = " and `status`='$status' "; 
+		if(!empty($did)){
+			$qry	= "select * from `data` where `uid`='$uid' and `did`='$did'";
 		}
 		else{
-			$status = " and `status`='1' ";
+			if(!empty($date) and empty($from) and empty($to)){
+				$date = " and `date`='$date' ";
+			}
+			elseif(!empty($from) and !empty($to) and empty($date)){
+				$date = " and (`date` BETWEEN '$from' and '$to') ";
+			}
+			
+			if(isset($type)){
+				$type = " and `type`='$type' ";
+			}
+			
+			if(!empty($search)){
+				$search = " and `desc` like '%$search%' or `token` like '%$search%' ";
+			}
+			
+			if(isset($status)){
+				$status = " and `status`='$status' "; 
+			}
+			else{
+				$status = " and `status`='1' ";
+			}
+			
+			if(isset($limit)){
+				$limit = " limit $limit ";
+			}
+			$qry	= "select * from `data` where `uid`='$uid' $date $type $status $search $limit";
 		}
-		
-		if(isset($limit)){
-			$limit = " limit $limit ";
-		}
-
-		$qry	= "select * from `data` where `uid`='$uid' $date $type $status $search $limit";
 		$data = select_tbl_qry($qry);
-		
-		$json = json_encode($data); 
+		$json = json_encode($data, JSON_PRETTY_PRINT); 
 		return $json;
 	}
 	else{
-		return 0;
+		return "[]";
 	}
 }
 

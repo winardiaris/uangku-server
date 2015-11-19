@@ -19,6 +19,7 @@
 		<td>untuk menambahkan pengguna baru<br>
 			<small>Contoh:</small><br>
 			<pre>?op=newuser&username=admin&password=456b7016a916a4b178dd72b947c152b7&realname=Administrator</pre>
+			<small class='text-danger'>password harus terenskrip dahulu</small>
 		</td>
 	</tr>
 	<tr>
@@ -37,7 +38,7 @@
 		<td>Memperbaharui user<br>
 			<small>Contoh:</small><br>
 			<pre>?op=updateuser&uid=1&username=admin&password=456b7016a916a4b178dd72b947c152b7&realname=Administrator2</pre>
-			<small class='text-danger'>username tidak dapat diubah</small>
+			<small class='text-danger'>UID tidak dapat diubah</small>
 		</td>
 	</tr>
 	<tr>
@@ -58,6 +59,7 @@
 			<small>Contoh:</small><br>
 			<pre>?op=viewdata&uid=1&date=2015-02-02&type=in&limit=100$search=string</pre>
 			<pre>?op=viewdata&uid=1&from=2015-12-01&to=2015-12-31&type=out&limit=10</pre>
+			<pre>?op=viewdata&uid=1&uid=1</pre>
 			<small class='text-danger'>uid*</small>
 		</td>
 	</tr>

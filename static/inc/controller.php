@@ -38,7 +38,7 @@ if(isset($_REQUEST['op'])){
 		echo add_data($uid,$date,$token,$type,$value,$desc);
 	}
 	elseif($op=="viewdata"){
-		echo list_data($uid,$date,$from,$to,$type,$status,$limit,$search);
+		echo list_data($uid,$did,$date,$from,$to,$type,$status,$limit,$search);
 	}
 	elseif($op=="totaldata"){
 		echo total_value_data($uid,$date,$from,$to,$type,$status,$limit,$search);
