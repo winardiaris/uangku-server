@@ -191,4 +191,8 @@ function real_url($url){
 	return $url; // Voila
 }
 
+function status($i){
+	$array = array("status"=>$i);
+	return json_encode($array);
+}
 ?>

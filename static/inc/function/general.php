@@ -47,7 +47,7 @@ function select_tbl($tbl_name,$field_name=null,$where=null,$limit=null,$debug=nu
 		}
 	}
 	else{
-		return 0;
+		return status(0);
 	}
 }
 function insert_to_tbl($tbl_name,$field_name,$value_data,$debug=null){
@@ -65,7 +65,7 @@ function insert_to_tbl($tbl_name,$field_name,$value_data,$debug=null){
 			if(empty($debug)){
 				$q = mysqli_query($DB,$sql);
 				if($q){
-					return 1;
+					return status(1);
 				}
 			}	
 			else{
@@ -74,11 +74,11 @@ function insert_to_tbl($tbl_name,$field_name,$value_data,$debug=null){
 			
 		}
 		else{
-			return 0;
+			return status(0);
 		}
 	}
 	else{
-		return 0;
+		return status(0);
 	}
 }
 function update_tbl($tbl_name,$set_data,$where,$debug=null){
@@ -94,7 +94,7 @@ function update_tbl($tbl_name,$set_data,$where,$debug=null){
 			if(empty($debug)){
 				$q = mysqli_query($DB,$sql);
 				if($q){
-					return 1;
+					return status(1);
 				}
 			}	
 			else{
@@ -102,11 +102,11 @@ function update_tbl($tbl_name,$set_data,$where,$debug=null){
 			}
 		}
 		else{
-			return 0;
+			return status(0);
 		}
 	}
 	else{
-		return 0;
+		return status(0);
 	}
 }
 function select_tbl_qry($query,$debug=null){
@@ -138,7 +138,7 @@ function select_tbl_qry($query,$debug=null){
 		}
 	}
 	else{
-		return 0;
+		return status(0);
 	}
 }
 function count_on_tbl($tbl_name,$where){
@@ -147,7 +147,7 @@ function count_on_tbl($tbl_name,$where){
 		return $count;
 	}
 	else{
-		return 0;
+		return status(0);
 	}
 }
 

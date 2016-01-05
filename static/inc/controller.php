@@ -63,7 +63,8 @@ if(isset($_REQUEST['op'])){
 		echo get_data($from_data,$value_data,$select_field,$from_table);
 	}
 	else{
-		header("location:index.php");
+		//header("location:index.php");
+		echo status(0);
 	}
 }
 else{

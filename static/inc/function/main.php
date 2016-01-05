@@ -29,14 +29,14 @@ function user_login($username,$password){
 		$available_user = count_on_tbl("user","`username`='$username' and `password`='$password'");
 		if($available_user>0){
 			set_user_last_login($username);
-			return 1;
+			return status(1);
 		}
 		else{
-			return 0;
+			return status(2);
 		}
 	}
 	else{
-		return 0;
+		return status(0);
 	}
 }
 
@@ -47,7 +47,7 @@ function add_data($uid,$date,$token,$type,$value,$desc){
 		$desc 				= UbahSimbol($desc);
 		$check_token 	= count_on_tbl("data","`token`='$token' and `desc`='$desc'");
 		if($check_token>0){
-			$output 		= 0;
+			$output 		= status(0);
 		}
 		else{
 			$check_user = count_on_tbl("user","`uid`='$uid'");
@@ -58,7 +58,7 @@ function add_data($uid,$date,$token,$type,$value,$desc){
 		return $output;
 	}
 	else{
-		return 0;
+		return status(0);
 	}
 	
 }
@@ -118,7 +118,7 @@ function delete_data($did,$desc){
 		return $output;
 	}
 	else{
-		return 0;
+		return status(0);
 	}
 	
 }
@@ -173,7 +173,7 @@ function total_value_data($uid,$date=null,$from=null,$to=null,$type=null,$status
 		return $data;		
 	}
 	else{
-		return 0;
+		return status(0);
 	}
 }
 
