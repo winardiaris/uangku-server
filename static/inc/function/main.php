@@ -3,7 +3,7 @@
 function save_new_user($username,$password,$realname){
 	$available_user = count_on_tbl("user","`username`='$username'");
 	if($available_user >0){
-		$output = 0;
+		$output = status(0);
 	}
 	else{
 		$output = insert_to_tbl("user","`username`,`password`,`realname`","'$username','$password','$realname'");
