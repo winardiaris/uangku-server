@@ -44,10 +44,8 @@ if(isset($_REQUEST['op'])){
 		echo total_value_data($uid,$date,$from,$to,$type,$status,$limit,$search);
 	}
 	elseif($op=="saldodata"){
-		$in = total_value_data($uid,$date,$from,$to,'in',$status,$limit,$search);
-		$out = total_value_data($uid,$date,$from,$to,'out',$status,$limit,$search);
+		echo saldodata($uid,$date,$from,$to,$status,$limit,$search);
 		
-		echo $in-$out;
 	}
 	elseif($op=="deletedata"){
 		echo delete_data($did,$desc);
@@ -62,9 +60,12 @@ if(isset($_REQUEST['op'])){
 	elseif($op=='get'){
 		echo get_data($from_data,$value_data,$select_field,$from_table);
 	}
+	elseif($op=='check'){
+		echo status("ok");
+	}
 	else{
 		//header("location:index.php");
-		echo status(0);
+		echo status("no operation");
 	}
 }
 else{

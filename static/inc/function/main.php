@@ -105,6 +105,13 @@ function list_data($uid,$did=null,$date=null,$from=null,$to=null,$type=null,$sta
 		return "[]";
 	}
 }
+function saldodata($uid,$date=null,$from=null,$to=null,$status=null,$limit=null,$search=null){
+	$in = total_value_data($uid,$date,$from,$to,'in',$status,$limit,$search);
+	$out = total_value_data($uid,$date,$from,$to,'out',$status,$limit,$search);
+	$saldo=$in-$out;
+	$output = array("uid"=>$uid,"saldo"=>$saldo);
+	return json_encode($output);
+}
 
 //merubah status data menjadi 0 yang artinya data sudah dihapus
 function delete_data($did,$desc){
