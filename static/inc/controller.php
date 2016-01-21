@@ -61,7 +61,7 @@ if(isset($_REQUEST['op'])){
 		echo get_data($from_data,$value_data,$select_field,$from_table);
 	}
 	elseif($op=='check'){
-		echo status("ok");
+		echo status("koneksi berhasil");
 	}
 	else{
 		//header("location:index.php");

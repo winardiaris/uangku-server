@@ -3,7 +3,7 @@
 function save_new_user($username,$password,$realname){
 	$available_user = count_on_tbl("user","`username`='$username'");
 	if($available_user >0){
-		$output = status(0);
+		$output = status("duplicate");
 	}
 	else{
 		$output = insert_to_tbl("user","`username`,`password`,`realname`","'$username','$password','$realname'");
@@ -29,14 +29,15 @@ function user_login($username,$password){
 		$available_user = count_on_tbl("user","`username`='$username' and `password`='$password'");
 		if($available_user>0){
 			set_user_last_login($username);
-			return status(1);
+			return status("success");
 		}
 		else{
-			return status(2);
+			return status("no_user");
 		}
+		return $available_user;
 	}
 	else{
-		return status(0);
+		return status("error");
 	}
 }
 
@@ -47,7 +48,7 @@ function add_data($uid,$date,$token,$type,$value,$desc){
 		$desc 				= UbahSimbol($desc);
 		$check_token 	= count_on_tbl("data","`token`='$token' and `desc`='$desc'");
 		if($check_token>0){
-			$output 		= status(0);
+			$output 		= status("duplicate");
 		}
 		else{
 			$check_user = count_on_tbl("user","`uid`='$uid'");
@@ -58,7 +59,7 @@ function add_data($uid,$date,$token,$type,$value,$desc){
 		return $output;
 	}
 	else{
-		return status(0);
+		return status("error");
 	}
 	
 }
@@ -106,8 +107,21 @@ function list_data($uid,$did=null,$date=null,$from=null,$to=null,$type=null,$sta
 	}
 }
 function saldodata($uid,$date=null,$from=null,$to=null,$status=null,$limit=null,$search=null){
-	$in = total_value_data($uid,$date,$from,$to,'in',$status,$limit,$search);
-	$out = total_value_data($uid,$date,$from,$to,'out',$status,$limit,$search);
+	$jin = total_value_data($uid,$date,$from,$to,'in',$status,$limit,$search);
+	$jout = total_value_data($uid,$date,$from,$to,'out',$status,$limit,$search);
+	
+	$in_ = json_decode($jin);
+	$out_ = json_decode($jout);
+	
+	$in=0;
+	$out=0;
+	foreach($in_->data as $data){
+		$in += $data->total;
+	}
+	foreach($out_->data as $data){
+		$out += $data->total;
+	}
+	
 	$saldo=$in-$out;
 	$output = array("uid"=>$uid,"saldo"=>$saldo);
 	return json_encode($output);
@@ -125,7 +139,7 @@ function delete_data($did,$desc){
 		return $output;
 	}
 	else{
-		return status(0);
+		return status("error");
 	}
 	
 }
@@ -175,21 +189,21 @@ function total_value_data($uid,$date=null,$from=null,$to=null,$type=null,$status
 		
 		$q = "select sum(`value`) as `total` from `data` where `uid`='$uid' $date $type $status $search $limit";
 		$data = select_tbl_qry($q);
-		$data = $data[0]['total'];
+		$json = json_encode($data);
 		
-		return $data;		
+		return $json;		
 	}
 	else{
-		return status(0);
+		return status("error");
 	}
 }
 
 //menampilkan sebuah data dari basisdata sesuai dengan data dasar
 //contohnya ingin mengetahui data realname pada table user dengan uid
 function get_data($from_data,$value_data,$select_field,$from_table){
-	$qry = "SELECT `$select_field` as `data` FROM `$from_table` WHERE `$from_data`='$value_data'";
+	$qry = "SELECT `$select_field` as `getdata` FROM `$from_table` WHERE `$from_data`='$value_data'";
 	$data = select_tbl_qry($qry);
-	
-	return Balikin($data[0]['data']);
+	$json = json_encode($data);
+	return Balikin($json);
 }
 ?>

@@ -193,6 +193,7 @@ function real_url($url){
 
 function status($i){
 	$array = array("status"=>$i);
-	return json_encode($array);
+	$data = array("data"=>$array);
+	return json_encode($data);
 }
 ?>

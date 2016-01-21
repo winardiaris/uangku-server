@@ -25,7 +25,7 @@ function select_tbl($tbl_name,$field_name=null,$where=null,$limit=null,$debug=nu
 		if(empty($debug)){
 			$q = mysqli_query($DB,$sql);
 			$count = mysqli_num_fields($q);
-			$data = array();
+			$datas = array();
 						
 			while($d=mysqli_fetch_array($q)){
 				$fname = array();
@@ -38,8 +38,9 @@ function select_tbl($tbl_name,$field_name=null,$where=null,$limit=null,$debug=nu
 					array_push($fname,$val->name);
 				}
 				$combine = array_combine($fname,$dataa);
-				array_push($data,$combine);
+				array_push($datas,$combine);
 			}
+			$data = array("data"=>$datas);
 			return $data;
 		}	
 		else{
@@ -65,7 +66,7 @@ function insert_to_tbl($tbl_name,$field_name,$value_data,$debug=null){
 			if(empty($debug)){
 				$q = mysqli_query($DB,$sql);
 				if($q){
-					return status(1);
+					return status("success");
 				}
 			}	
 			else{
@@ -74,11 +75,11 @@ function insert_to_tbl($tbl_name,$field_name,$value_data,$debug=null){
 			
 		}
 		else{
-			return status(0);
+			return status("error");
 		}
 	}
 	else{
-		return status(0);
+		return status("error");
 	}
 }
 function update_tbl($tbl_name,$set_data,$where,$debug=null){
@@ -94,7 +95,7 @@ function update_tbl($tbl_name,$set_data,$where,$debug=null){
 			if(empty($debug)){
 				$q = mysqli_query($DB,$sql);
 				if($q){
-					return status(1);
+					return status("success");
 				}
 			}	
 			else{
@@ -102,11 +103,11 @@ function update_tbl($tbl_name,$set_data,$where,$debug=null){
 			}
 		}
 		else{
-			return status(0);
+			return status("error");
 		}
 	}
 	else{
-		return status(0);
+		return status("error");
 	}
 }
 function select_tbl_qry($query,$debug=null){
@@ -116,8 +117,8 @@ function select_tbl_qry($query,$debug=null){
 		if(empty($debug)){
 			$q = mysqli_query($DB,$sql);
 			$count = mysqli_num_fields($q);
-			$data = array();
 						
+			$datas = array();
 			while($d=mysqli_fetch_array($q)){
 				$fname = array();
 				$dataa = array();
@@ -129,8 +130,9 @@ function select_tbl_qry($query,$debug=null){
 					array_push($fname,$val->name);
 				}
 				$combine = array_combine($fname,$dataa);
-				array_push($data,$combine);
+				array_push($datas,$combine);
 			}
+			$data = array("data"=>$datas);
 			return $data;
 		}	
 		else{
@@ -138,16 +140,16 @@ function select_tbl_qry($query,$debug=null){
 		}
 	}
 	else{
-		return status(0);
+		return status("error");
 	}
 }
 function count_on_tbl($tbl_name,$where){
 	if(isset($tbl_name) and isset($where)){
-		$count = count(select_tbl($tbl_name,null,$where));
+		$count = array_sum(array_map("count",select_tbl($tbl_name,null,$where)));
 		return $count;
 	}
 	else{
-		return status(0);
+		return status("error");
 	}
 }
 
